@@ -9,7 +9,7 @@ interface Options<Schema> {
   defaultSchema?: Partial<Schema>;
 }
 
-class Haf<Schema extends {}, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
+class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   readonly #options: Readonly<Options<Schema>>;
   private configPath: string;
 
@@ -71,6 +71,7 @@ class Haf<Schema extends {}, FlattenedSchema = FlattenedWithDotNotation<Schema>>
   private _get<Path extends StringKeysOf<FlattenedSchema>>(path: Path, source?: Partial<Schema>): FlattenedSchema[Path] {
     const keys = path.split('.');
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let result: any = source ? source : this.store;
 
     for (let i = 0; i < keys.length; i++) {
@@ -90,8 +91,10 @@ class Haf<Schema extends {}, FlattenedSchema = FlattenedWithDotNotation<Schema>>
 
     keys.reduce((obj, key) => {
       if (keys.findIndex((k) => k === key) === keys.length - 1) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any)[key] = value;
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return (obj as any)[key];
       }
     }, result);

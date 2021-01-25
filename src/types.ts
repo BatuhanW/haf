@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
   ? I
   : never;
@@ -24,15 +25,17 @@ export type FlattenedWithDotNotation<Schema, Prefix = null> =
     /* then, for each sub-object, recurse */
     IntersectValuesOf<
       {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
           ? never
-          : Schema[K] extends object
+          : Schema[K] extends Record<string, unknown>
           ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
           : never;
       }
     >;
 
-type PrimitiveTypes = string | number | boolean | any[] | {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PrimitiveTypes = string | number | boolean | any[] | Record<string, unknown>;
 
 export type StringKeysOf<Schema> = keyof Schema & string;
 
