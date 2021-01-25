@@ -7,15 +7,18 @@
   "description": "Modern, cross-platform persistent config for NodeJS projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist/**/*"],
-  "prepare" : "npm run build",
-  "prepublishOnly" : "npm test && npm run lint",
-  "preversion" : "npm run lint",
-  "postversion" : "git push && git push --tags",
+  "files": [
+    "dist/**/*"
+  ],
+  "prepare": "npm run build",
+  "prepublishOnly": "npm test && npm run lint",
+  "preversion": "npm run lint",
+  "postversion": "git push && git push --tags",
   "scripts": {
     "test": "jest --runInBand",
     "test:coverage": "jest --runInBand --coverage",
-    "build": "rimraf dist && tsc --build tsconfig.build.json"
+    "build": "rimraf dist && tsc --build tsconfig.build.json",
+    "lint": "eslint ./{src,spec} --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,7 @@
     "@types/rimraf": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",
@@ -43,5 +47,14 @@
     "fs-extra": "^9.1.0",
     "rimraf": "^3.0.2"
   },
-  "keywords": ["haf", "config", "store", "cli", "typescript", "typed", "oclif", "persistent"]
+  "keywords": [
+    "haf",
+    "config",
+    "store",
+    "cli",
+    "typescript",
+    "typed",
+    "oclif",
+    "persistent"
+  ]
 }
