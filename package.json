@@ -1,0 +1,47 @@
+{
+  "name": "@batuhanw/haf",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=10"
+  },
+  "description": "Modern, cross-platform persistent config for NodeJS projects",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
+  "prepare" : "npm run build",
+  "prepublishOnly" : "npm test && npm run lint",
+  "preversion" : "npm run lint",
+  "postversion" : "git push && git push --tags",
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
+    "build": "rimraf dist && tsc --build tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BatuhanW/haf.git"
+  },
+  "author": "BatuhanW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BatuhanW/haf/issues"
+  },
+  "homepage": "https://github.com/BatuhanW/haf#readme",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.6",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/rimraf": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.2.0-beta"
+  },
+  "dependencies": {
+    "fs-extra": "^9.1.0",
+    "rimraf": "^3.0.2"
+  },
+  "keywords": ["haf", "config", "store", "cli", "typescript", "typed", "oclif", "persistent"]
+}
