@@ -29,6 +29,12 @@
     "email": "me@batuhan.dev",
     "url": "https://github.com/BatuhanW"
   },
+  "contributors": [
+    {
+      "name": "Floris Bernard",
+      "url": "https://github.com/flut1"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/BatuhanW/haf/issues"
