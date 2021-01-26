@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=10"
   },
-  "description": "Modern, cross-platform persistent config for NodeJS projects",
+  "description": "Fully typed, modern, cross-platform persistent config solution for NodeJS projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
