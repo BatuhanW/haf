@@ -13,11 +13,11 @@ Haf is a fully typed 🔒, cross-platform, persistent 💾 config ⚙️ solutio
 - ✅ The type of the value you get() from the store is correctly inferred. So you always know what you'll get().
 - ❌ Non-nullable values aren't suggested on delete(). Trying to delete() a non-nullable field will throw a type error.
 
-![](https://github.com/BatuhanW/Haf/blob/master/get.gif)
+![](https://github.com/BatuhanW/Haf/blob/add-gifs/get.gif)
 
-![](https://github.com/BatuhanW/Haf/blob/master/set.gif)
+![](https://github.com/BatuhanW/Haf/blob/add-gifs/set.gif)
 
-![](https://github.com/BatuhanW/Haf/blob/master/delete.gif)
+![](https://github.com/BatuhanW/Haf/blob/add-gifs/delete.gif)
 
 ## Installation
 
