@@ -10,15 +10,15 @@
   "files": [
     "dist/**/*"
   ],
-  "prepare": "npm run build",
-  "prepublishOnly": "npm test && npm run lint",
-  "preversion": "npm run lint",
-  "postversion": "git push && git push --tags",
   "scripts": {
     "test": "jest --runInBand",
     "test:coverage": "jest --runInBand --coverage",
     "build": "rimraf dist && tsc --build tsconfig.build.json",
-    "lint": "eslint ./{src,spec} --ext .ts"
+    "lint": "eslint ./{src,spec} --ext .ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
