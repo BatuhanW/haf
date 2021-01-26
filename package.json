@@ -24,7 +24,11 @@
     "type": "git",
     "url": "git+https://github.com/BatuhanW/haf.git"
   },
-  "author": "BatuhanW",
+  "author": {
+    "name": "Batuhan Wilhelm",
+    "email": "me@batuhan.dev",
+    "url": "https://github.com/BatuhanW"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/BatuhanW/haf/issues"
