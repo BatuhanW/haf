@@ -241,6 +241,14 @@ describe('Haf', () => {
           favoriteToys: ['toilet paper'],
           luckyNumbers: [4],
           vaccines: [{ name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } }],
+          appearance: {
+            eyeColor: 'brown',
+            hairColor: {
+              primary: 'white',
+              otherColors: ['pink'],
+            },
+            birthMarks: ['head'],
+          },
         },
       });
     });
@@ -264,6 +272,22 @@ describe('Haf', () => {
         { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
         { name: 'parasite', date: '2020-01-22' },
       ]);
+    });
+
+    describe('object level 1', () => {
+      it('appends string', () => {
+        haf.append('appearance.birthMarks', 'tail');
+
+        expect(haf.get('appearance.birthMarks')).toEqual(['head', 'tail']);
+      });
+
+      describe('object level 2', () => {
+        it('appends string', () => {
+          haf.append('appearance.hairColor.otherColors', 'blue');
+
+          expect(haf.get('appearance.hairColor.otherColors')).toEqual(['pink', 'blue']);
+        });
+      });
     });
   });
 
