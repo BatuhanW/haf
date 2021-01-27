@@ -54,14 +54,14 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   reset(path?: StringKeysOf<FlattenedSchema>): void {
     if (typeof path === 'undefined') {
-      this.store = this.#defaultOptions.defaultSchema || {}
+      this.store = this.#defaultOptions.defaultSchema || {};
 
-      return
+      return;
     }
 
-    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema)
+    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema);
 
-    this._set(path, defaultValue)
+    this._set(path, defaultValue);
   }
 
   nuke(): void {
