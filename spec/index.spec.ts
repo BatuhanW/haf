@@ -32,6 +32,22 @@ describe('Haf', () => {
     haf.nuke();
   });
 
+  describe('when Haf initiated for the second time', () => {
+    it('shouldnt overwrite existing config', () => {
+      haf = new Haf({ name: 'pop', defaultSchema: { name: 'pop' } });
+
+      expect(haf.get('name')).toEqual('pop');
+
+      haf.set('name', 'pop2');
+
+      expect(haf.get('name')).toEqual('pop2');
+
+      haf = new Haf({ name: 'pop', defaultSchema: { name: 'pop' } });
+
+      expect(haf.get('name')).toEqual('pop2');
+    });
+  });
+
   describe('get()', () => {
     beforeEach(() => {
       haf = new Haf({
