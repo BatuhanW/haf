@@ -16,8 +16,10 @@ interface DogSchema {
     hairColor: {
       primary: string;
       secondary?: string;
+      otherColors: string[];
     };
     noseColor?: string;
+    birthMarks: string[];
   };
   sterilizedAt?: string;
   hasPuppies: boolean;
@@ -40,7 +42,9 @@ describe('Haf', () => {
             eyeColor: 'brown',
             hairColor: {
               primary: 'white',
+              otherColors: ['pink'],
             },
+            birthMarks: ['head'],
           },
           favoriteToys: ['socks', 'toilet_paper'],
           hasPuppies: false,
@@ -65,7 +69,9 @@ describe('Haf', () => {
           eyeColor: 'brown',
           hairColor: {
             primary: 'white',
+            otherColors: ['pink'],
           },
+          birthMarks: ['head'],
         });
       });
 
@@ -79,7 +85,10 @@ describe('Haf', () => {
 
       describe('object level 2', () => {
         it('itself', () => {
-          expect(haf.get('appearance.hairColor')).toEqual({ primary: 'white' });
+          expect(haf.get('appearance.hairColor')).toEqual({
+            primary: 'white',
+            otherColors: ['pink'],
+          });
         });
 
         it('string', () => {
@@ -164,14 +173,19 @@ describe('Haf', () => {
     });
 
     describe('object', () => {
-      const appearance = { eyeColor: 'brown', hairColor: { primary: 'white' } };
+      const appearance = {
+        eyeColor: 'brown',
+        hairColor: { primary: 'white', otherColors: ['pink'] },
+        birthMarks: ['head'],
+      };
 
       it('itself', () => {
         haf.set('appearance', appearance);
 
         expect(haf.get('appearance')).toEqual({
           eyeColor: 'brown',
-          hairColor: { primary: 'white' },
+          hairColor: { primary: 'white', otherColors: ['pink'] },
+          birthMarks: ['head'],
         });
       });
 
@@ -179,11 +193,16 @@ describe('Haf', () => {
         it('itself', () => {
           haf.set('appearance', appearance);
 
-          haf.set('appearance.hairColor', { primary: 'orange', secondary: 'black' });
+          haf.set('appearance.hairColor', {
+            primary: 'orange',
+            secondary: 'black',
+            otherColors: ['pink'],
+          });
 
           expect(haf.get('appearance.hairColor')).toEqual({
             primary: 'orange',
             secondary: 'black',
+            otherColors: ['pink'],
           });
         });
 
@@ -282,7 +301,9 @@ describe('Haf', () => {
             eyeColor: 'brown',
             hairColor: {
               primary: 'white',
+              otherColors: ['pink'],
             },
+            birthMarks: ['head'],
           },
           favoriteToys: ['socks', 'toilet_paper'],
           hasPuppies: false,
@@ -311,7 +332,9 @@ describe('Haf', () => {
           eyeColor: 'brown',
           hairColor: {
             primary: 'white',
+            otherColors: ['pink'],
           },
+          birthMarks: ['head'],
         },
         favoriteToys: ['socks', 'toilet_paper'],
         hasPuppies: false,
@@ -385,8 +408,9 @@ describe('Haf', () => {
           haf.set('age', 2);
           haf.set('appearance', {
             eyeColor: 'orange',
-            hairColor: { primary: 'orange', secondary: 'black' },
+            hairColor: { primary: 'orange', secondary: 'black', otherColors: ['pink'] },
             noseColor: 'face',
+            birthMarks: ['head'],
           });
 
           haf.reset('name');
