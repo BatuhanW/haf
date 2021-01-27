@@ -198,6 +198,44 @@ describe('Haf', () => {
     });
   });
 
+  describe('append()', () => {
+    beforeEach(() => {
+      haf = new Haf({
+        name: 'pop',
+        defaultSchema: {
+          favoriteToys: [],
+          luckyNumbers: [],
+          vaccines: [],
+        },
+      });
+    });
+
+    describe('string[]', () => {
+      haf.append('favoriteToys', 'toilet paper', 'socks');
+
+      expect(haf.get('favoriteToys')).toEqual(['toilet paper', 'socks']);
+    });
+
+    describe('number[]', () => {
+      haf.append('luckyNumbers', 4, 2);
+
+      expect(haf.get('favoriteToys')).toEqual([4, 2]);
+    });
+
+    describe('number[]', () => {
+      haf.append(
+        'vaccines',
+        { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
+        { name: 'parasite', date: '2020-01-22' }
+      );
+
+      expect(haf.get('vaccines')).toEqual([
+        { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
+        { name: 'parasite', date: '2020-01-22' },
+      ]);
+    });
+  });
+
   describe('delete()', () => {
     beforeEach(() => {
       haf = new Haf({
@@ -312,16 +350,16 @@ describe('Haf', () => {
           haf.set('appearance', {
             eyeColor: 'orange',
             hairColor: { primary: 'orange', secondary: 'black' },
-            birthMark: 'face'
+            birthMark: 'face',
           });
 
           haf.reset('name');
           haf.reset('appearance.birthMark');
-          haf.reset('appearance.hairColor.secondary')
+          haf.reset('appearance.hairColor.secondary');
 
           expect(haf.get('name')).toBeUndefined();
           expect(haf.get('appearance.birthMark')).toBeUndefined();
-          expect(haf.get('appearance.hairColor.secondary')).toBeUndefined()
+          expect(haf.get('appearance.hairColor.secondary')).toBeUndefined();
         });
       });
     });
