@@ -3,6 +3,7 @@
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended"],
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "comma-dangle": ["error", "always-multiline"]
   }
 }
