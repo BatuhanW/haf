@@ -17,7 +17,7 @@ interface DogSchema {
       primary: string;
       secondary?: string;
     };
-    birthMark?: string;
+    noseColor?: string;
   };
   sterilizedAt?: string;
   hasPuppies: boolean;
@@ -74,7 +74,7 @@ describe('Haf', () => {
       });
 
       it('undefined', () => {
-        expect(haf.get('appearance.birthMark')).toBeUndefined();
+        expect(haf.get('appearance.noseColor')).toBeUndefined();
       });
 
       describe('object level 2', () => {
@@ -337,7 +337,7 @@ describe('Haf', () => {
           haf.set('hasPuppies', true);
           haf.set('luckyNumbers', [42]);
           haf.set('vaccines', []);
-          haf.set('appearance.birthMark', 'face');
+          haf.set('appearance.noseColor', 'face');
           haf.set('appearance.eyeColor', 'blue');
           haf.set('appearance.hairColor.primary', 'orange');
           haf.set('appearance.hairColor.secondary', 'black');
@@ -386,15 +386,15 @@ describe('Haf', () => {
           haf.set('appearance', {
             eyeColor: 'orange',
             hairColor: { primary: 'orange', secondary: 'black' },
-            birthMark: 'face',
+            noseColor: 'face',
           });
 
           haf.reset('name');
-          haf.reset('appearance.birthMark');
+          haf.reset('appearance.noseColor');
           haf.reset('appearance.hairColor.secondary');
 
           expect(haf.get('name')).toBeUndefined();
-          expect(haf.get('appearance.birthMark')).toBeUndefined();
+          expect(haf.get('appearance.noseColor')).toBeUndefined();
           expect(haf.get('appearance.hairColor.secondary')).toBeUndefined();
         });
       });
