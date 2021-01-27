@@ -1,7 +1,7 @@
 import { pathExistsSync, readJsonSync, writeJsonSync, removeSync } from 'fs-extra';
 
 import { getConfigPath } from './get-config-path';
-import type { FlattenedWithDotNotation, OptionalKeysOf, StringKeysOf } from './types';
+import type { FlattenedWithDotNotation, OptionalKeysOf, StringKeysOf, ArrayKeysOf } from './types';
 
 interface Options<Schema> {
   name: string;
@@ -48,27 +48,41 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
     this._set(path, value);
   }
 
+  append<Path extends ArrayKeysOf<FlattenedSchema>>(
+    path: Path,
+    ...values: FlattenedSchema[Path]
+  ): void {
+    const existingValues = this._get(path);
+
+    const result = [...existingValues, ...values];
+
+    this._set(path, result as FlattenedSchema[Path]);
+  }
+
   delete(path: OptionalKeysOf<FlattenedSchema>): void {
     this._set(path, undefined);
   }
 
   reset(path?: StringKeysOf<FlattenedSchema>): void {
     if (typeof path === 'undefined') {
-      this.store = this.#defaultOptions.defaultSchema || {}
+      this.store = this.#defaultOptions.defaultSchema || {};
 
-      return
+      return;
     }
 
-    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema)
+    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema);
 
-    this._set(path, defaultValue)
+    this._set(path, defaultValue);
   }
 
   nuke(): void {
     removeSync(this.configPath);
   }
 
-  private _get<Path extends StringKeysOf<FlattenedSchema>>(path: Path, source?: Partial<Schema>): FlattenedSchema[Path] {
+  private _get<Path extends StringKeysOf<FlattenedSchema>>(
+    path: Path,
+    source?: Partial<Schema>
+  ): FlattenedSchema[Path] {
     const keys = path.split('.');
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
