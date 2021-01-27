@@ -83,6 +83,10 @@ describe('Haf', () => {
         expect(haf.get('appearance.noseColor')).toBeUndefined();
       });
 
+      it('string[]', () => {
+        expect(haf.get('appearance.birthMarks')).toEqual(['head']);
+      });
+
       describe('object level 2', () => {
         it('itself', () => {
           expect(haf.get('appearance.hairColor')).toEqual({
@@ -97,6 +101,10 @@ describe('Haf', () => {
 
         it('undefined', () => {
           expect(haf.get('appearance.hairColor.secondary')).toBeUndefined();
+        });
+
+        it('string[]', () => {
+          expect(haf.get('appearance.hairColor.otherColors')).toEqual(['pink']);
         });
       });
     });
@@ -196,22 +204,30 @@ describe('Haf', () => {
           haf.set('appearance.hairColor', {
             primary: 'orange',
             secondary: 'black',
-            otherColors: ['pink'],
+            otherColors: ['red'],
           });
 
           expect(haf.get('appearance.hairColor')).toEqual({
             primary: 'orange',
             secondary: 'black',
-            otherColors: ['pink'],
+            otherColors: ['red'],
           });
         });
 
-        it('sub key', () => {
+        it('string', () => {
           haf.set('appearance', appearance);
 
           haf.set('appearance.hairColor.primary', 'black');
 
           expect(haf.get('appearance.hairColor.primary')).toEqual('black');
+        });
+
+        it('string[]', () => {
+          haf.set('appearance', appearance);
+
+          haf.set('appearance.hairColor.otherColors', ['blue']);
+
+          expect(haf.get('appearance.hairColor.otherColors')).toEqual(['blue']);
         });
       });
     });
