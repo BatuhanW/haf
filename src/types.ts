@@ -26,9 +26,10 @@ export type FlattenedWithDotNotation<Schema, Prefix = null> =
     IntersectValuesOf<
       {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
-          ? never
-          : Schema[K] extends Record<string, unknown>
+        [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Record<
+          string,
+          unknown
+        >
           ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
           : never;
       }
@@ -39,11 +40,17 @@ type PrimitiveTypes = string | number | boolean | any[] | Record<string, unknown
 
 export type StringKeysOf<Schema> = keyof Schema & string;
 
-type PrimitiveKeysOf<Schema> = keyof Pick<
+type ExtractKeysIn<Schema, Type> = keyof Pick<
   Schema,
   {
-    [K in keyof Schema]: Schema[K] extends PrimitiveTypes ? K : never;
+    [K in keyof Schema]: Schema[K] extends Type ? K : never;
   }[keyof Schema]
 >;
 
-export type OptionalKeysOf<Schema> = Exclude<StringKeysOf<Schema>, PrimitiveKeysOf<Schema>>;
+export type OptionalKeysOf<Schema> = Exclude<
+  StringKeysOf<Schema>,
+  ExtractKeysIn<Schema, PrimitiveTypes>
+>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ArrayKeysOf<Schema> = Extract<StringKeysOf<Schema>, ExtractKeysIn<Schema, any[]>>;
