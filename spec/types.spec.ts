@@ -74,5 +74,9 @@ describe('Type tests', () => {
 
     // $ExpectTypeSnapshot vaccines[0]
     haf.get('vaccines')[0];
+
+    // @ts-expect-error: Getting a key that doesn't exist
+    // $ExpectTypeSnapshot error
+    haf.get('non-existent');
   });
 });
