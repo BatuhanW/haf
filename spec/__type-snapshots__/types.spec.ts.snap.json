@@ -1,1 +1,19 @@
-{"getName":"string","getAge":"number","getAppearance":"{ eyeColor: string; hairColor: { primary: string; secondary?: string | undefined; otherColors: string[]; }; noseColor?: string | undefined; birthMarks: string[]; }","getBirthMarks":"string[]","getEyeColor":"string","getHairColor":"{ primary: string; secondary?: string | undefined; otherColors: string[]; }","getOtherColors":"string[]","getPrimary":"string","getSecondary":"string | undefined","getNoseColor":"string | undefined","getFavoriteToys":"string[]","getHasPuppies":"boolean","getLuckNumbers":"number[]","getSterilizedAt":"string | undefined","getVaccines":"Vaccine[]","getVaccines[0]":"Vaccine","getError":"string | number | boolean | string[] | number[] | Vaccine[] | { eyeColor: string; hairColor: { primary: string; secondary?: string | undefined; otherColors: string[]; }; noseColor?: string | undefined; birthMarks: string[]; } | { primary: string; secondary?: string | undefined; otherColors: string[]; } | undefined"}
+{
+  "getName": "string",
+  "getAge": "number",
+  "getAppearance": "{ eyeColor: string; hairColor: { primary: string; secondary?: string | undefined; otherColors: string[]; }; noseColor?: string | undefined; birthMarks: string[]; }",
+  "getBirthMarks": "string[]",
+  "getEyeColor": "string",
+  "getHairColor": "{ primary: string; secondary?: string | undefined; otherColors: string[]; }",
+  "getOtherColors": "string[]",
+  "getPrimary": "string",
+  "getSecondary": "string | undefined",
+  "getNoseColor": "string | undefined",
+  "getFavoriteToys": "string[]",
+  "getHasPuppies": "boolean",
+  "getLuckNumbers": "number[]",
+  "getSterilizedAt": "string | undefined",
+  "getVaccines": "Vaccine[]",
+  "getVaccines[0]": "Vaccine",
+  "getError": "string | number | boolean | string[] | number[] | Vaccine[] | { eyeColor: string; hairColor: { primary: string; secondary?: string | undefined; otherColors: string[]; }; noseColor?: string | undefined; birthMarks: string[]; } | { primary: string; secondary?: string | undefined; otherColors: string[]; } | undefined"
+}
