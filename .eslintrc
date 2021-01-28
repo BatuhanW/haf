@@ -16,6 +16,6 @@
       { "code": 100, "tabWidth": 2, "ignoreComments": true, "ignoreTrailingComments": true }
     ],
     "quotes": ["error", "single"],
-    "expect-type/expect": ["error", { "disableExpectTypeSnapshotFix": true }]
+    "expect-type/expect": ["error", { "disableExpectTypeSnapshotFix": false }]
   }
 }

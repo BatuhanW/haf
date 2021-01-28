@@ -27,56 +27,56 @@ describe('Type tests', () => {
   });
 
   describe('get', () => {
-    // $ExpectTypeSnapshot name
+    // $ExpectTypeSnapshot getName
     haf.get('name');
 
-    // $ExpectTypeSnapshot age
+    // $ExpectTypeSnapshot getAge
     haf.get('age');
 
-    // $ExpectTypeSnapshot appearance
+    // $ExpectTypeSnapshot getAppearance
     haf.get('appearance');
 
-    // $ExpectTypeSnapshot birthMarks
+    // $ExpectTypeSnapshot getBirthMarks
     haf.get('appearance.birthMarks');
 
-    // $ExpectTypeSnapshot eyeColor
+    // $ExpectTypeSnapshot getEyeColor
     haf.get('appearance.eyeColor');
 
-    // $ExpectTypeSnapshot hairColor
+    // $ExpectTypeSnapshot getHairColor
     haf.get('appearance.hairColor');
 
-    // $ExpectTypeSnapshot otherColors
+    // $ExpectTypeSnapshot getOtherColors
     haf.get('appearance.hairColor.otherColors');
 
-    // $ExpectTypeSnapshot primary
+    // $ExpectTypeSnapshot getPrimary
     haf.get('appearance.hairColor.primary');
 
-    // $ExpectTypeSnapshot secondary
+    // $ExpectTypeSnapshot getSecondary
     haf.get('appearance.hairColor.secondary');
 
-    // $ExpectTypeSnapshot noseColor
+    // $ExpectTypeSnapshot getNoseColor
     haf.get('appearance.noseColor');
 
-    // $ExpectTypeSnapshot favoriteToys
+    // $ExpectTypeSnapshot getFavoriteToys
     haf.get('favoriteToys');
 
-    // $ExpectTypeSnapshot hasPuppies
+    // $ExpectTypeSnapshot getHasPuppies
     haf.get('hasPuppies');
 
-    // $ExpectTypeSnapshot luckNumbers
+    // $ExpectTypeSnapshot getLuckNumbers
     haf.get('luckyNumbers');
 
-    // $ExpectTypeSnapshot sterilizedAt
+    // $ExpectTypeSnapshot getSterilizedAt
     haf.get('sterilizedAt');
 
-    // $ExpectTypeSnapshot vaccines
+    // $ExpectTypeSnapshot getVaccines
     haf.get('vaccines');
 
-    // $ExpectTypeSnapshot vaccines[0]
+    // $ExpectTypeSnapshot getVaccines[0]
     haf.get('vaccines')[0];
 
     // @ts-expect-error: Getting a key that doesn't exist
-    // $ExpectTypeSnapshot error
+    // $ExpectTypeSnapshot getError
     haf.get('non-existent');
   });
 });
