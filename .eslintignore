@@ -3,3 +3,4 @@ coverage
 dist
 node_modules
 global.d.ts
+jest.config.js
