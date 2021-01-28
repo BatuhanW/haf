@@ -16,7 +16,7 @@
     "build": "rimraf dist && tsc --build tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
+    "prepublishOnly": "npm test && npm run lint"
   },
   "repository": {
     "type": "git",
