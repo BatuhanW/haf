@@ -6,7 +6,6 @@
 [![Dependencies](https://status.david-dm.org/gh/batuhanw/haf.svg)](https://status.david-dm.org/gh/batuhanw/haf)
 [![Dev Dependencies](https://status.david-dm.org/gh/batuhanw/haf.svg?type=dev)](https://status.david-dm.org/gh/batuhanw/haf)
 
-
 Haf is a fully typed 🔒, cross-platform, persistent 💾 config ⚙️ solution for your NodeJS projects with a great developer experience!
 
 - ✏️ Auto-completed dot-notation suggestions as you type when you try to get()/set()/delete()/reset() data from the store.
@@ -35,6 +34,14 @@ interface DogSchema {
   age: number;
   toys: string[];
   vaccines: { name: string; date: string; nextDate?: string }[];
+  appearance: {
+    eyeColor: string;
+    hairColor: {
+      primary: string;
+      secondary?: string;
+      otherColors: string[];
+    };
+  };
   sterilizedAt?: string;
   hasPuppies: boolean;
 }
@@ -54,17 +61,18 @@ const haf = new Haf<DogSchema>(
       toys: ['socks', 'toilet paper'],
       vaccines: [
         { name: 'rabbies', date: '2020-01-01' },
-        { name: 'parasite', date: '2020-01-01', next: '2020-01-03' }
+        { name: 'parasite', date: '2020-01-01', next: '2020-01-03' },
       ],
-      hasPuppies: false,
       appearance: {
-        eyeColor: string;
+        eyeColor: 'brown',
         hairColor: {
-          primary: string;
-          secondary?: string;
-        }
-      }
-      sterilizedAt?: string;
+          primary: 'white',
+          secondary: undefined,
+          otherColors: ['black'],
+        },
+      },
+      sterilizedAt: undefined,
+      hasPuppies: false,
     }
   }
 )
@@ -79,7 +87,7 @@ const haf = new Haf<DogSchema>(
   const age = haf.get('age') // number
   const hasPuppies = haf.get('hasPuppies') // boolean
   const vaccines = haf.get('vaccines') // { name: string; date: string; nextDate?: string }[]
-  const hairColor: haf.get('appearance.haircolor') // { primary: string; secondary?: string }
+  const hairColor: haf.get('appearance.haircolor') // { primary: string; secondary?: string, otherColors: string[] }
   const secondaryHairColor: haf.get('appearance.hairColor.secondary') // string | undefined
 
   const invalid = haf.get('non-existent') // type error
@@ -88,31 +96,45 @@ const haf = new Haf<DogSchema>(
 #### Set
 
 ```typescript
-  haf.set('name', 'Pop');
-  haf.set('appearance.hairColor', { primary: 'white' });
-  haf.set('appearance.hairColor.secondary', 'brown');
-  haf.set('appearance.hairColor.secondary', undefined);
+haf.set('name', 'Pop');
+haf.set('appearance.hairColor', { primary: 'white' });
+haf.set('appearance.hairColor.secondary', 'brown');
+haf.set('appearance.hairColor.secondary', undefined);
+haf.set('appearance.hairColor.otherColors', ['black']) // This will overwrite existing array
 
-  haf.set('name', 1); // type error
-  haf.set('toys', [1, 2]); // type error
-  haf.set('appearance.haircolor', { primary: 1 }); //type error
-  haf.set('appearance.hairColor.primary', 1); // type error
-  haf.set('appearance.haircolor', { notExist: 'white' }); //type error
+haf.set('name', 1); // type error
+haf.set('toys', [1, 2]); // type error
+haf.set('appearance.haircolor', { primary: 1 }); //type error
+haf.set('appearance.hairColor.primary', 1); // type error
+haf.set('appearance.haircolor', { notExist: 'white' }); //type error
+```
+
+#### Append
+
+Appends given values to the existing array
+
+```typescript
+haf.get('toys') // ['socks', 'toilet paper']
+
+haf.append('toys', 'human hand', 'bone')
+
+haf.get('toys') // ['socks', 'toilet paper', 'human hand', 'bone']
 ```
 
 #### Delete
 
 ```typescript
-  haf.delete('sterilizedAt')
-  haf.delete('appearance.hairColor.secondary')
+haf.delete('sterilizedAt');
+haf.delete('appearance.hairColor.secondary');
 
-  haf.delete('name') // type error
-  haf.delete('appearance.hairColor.primary') // type error
+haf.delete('name'); // type error
+haf.delete('appearance.hairColor.primary'); // type error
 ```
 
 ### Gifs
 
 #### Get
+
 ![](https://github.com/BatuhanW/Haf/blob/main/get.gif)
 
 #### Set
