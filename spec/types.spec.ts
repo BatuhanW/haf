@@ -2,31 +2,31 @@ import Haf from '../src';
 import { DogSchema } from './types';
 
 describe('Type tests', () => {
-  describe('get', () => {
-    const haf: Haf<DogSchema> = new Haf({
-      name: 'pop',
-      defaultSchema: {
-        name: 'Pop',
-        age: 2,
-        appearance: {
-          eyeColor: 'brown',
-          hairColor: {
-            primary: 'white',
-            otherColors: ['pink'],
-          },
-          birthMarks: ['head'],
+  const haf: Haf<DogSchema> = new Haf({
+    name: 'pop',
+    defaultSchema: {
+      name: 'Pop',
+      age: 2,
+      appearance: {
+        eyeColor: 'brown',
+        hairColor: {
+          primary: 'white',
+          otherColors: ['pink'],
         },
-        favoriteToys: ['socks', 'toilet_paper'],
-        hasPuppies: false,
-        luckyNumbers: [4, 2],
-        vaccines: [
-          { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
-          { name: 'parasite', date: '2020-01-22' },
-        ],
-        sterilizedAt: undefined,
+        birthMarks: ['head'],
       },
-    });
+      favoriteToys: ['socks', 'toilet_paper'],
+      hasPuppies: false,
+      luckyNumbers: [4, 2],
+      vaccines: [
+        { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
+        { name: 'parasite', date: '2020-01-22' },
+      ],
+      sterilizedAt: undefined,
+    },
+  });
 
+  describe('get', () => {
     // $ExpectTypeSnapshot name
     haf.get('name');
 
