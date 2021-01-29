@@ -1,7 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "eslint-plugin-expect-type"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:eslint-plugin-expect-type/recommended"
+  ],
   "rules": {
     "semi": "error",
     "comma-dangle": ["error", "always-multiline"],
@@ -9,6 +15,7 @@
       "error",
       { "code": 100, "tabWidth": 2, "ignoreComments": true, "ignoreTrailingComments": true }
     ],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "expect-type/expect": ["error", { "disableExpectTypeSnapshotFix": false }]
   }
 }

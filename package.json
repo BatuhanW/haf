@@ -15,6 +15,7 @@
     "test:coverage": "jest --runInBand --coverage",
     "build": "rimraf dist && tsc --build tsconfig.build.json",
     "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint"
   },
@@ -46,6 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "eslint": "^7.18.0",
+    "eslint-plugin-expect-type": "0.0.5",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",
