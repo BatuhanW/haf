@@ -4,13 +4,15 @@ interface Vaccine {
   next?: { date: string };
 }
 
+interface HairColor{
+  primary: string;
+  secondary?: string;
+  otherColors: string[];
+}
+
 interface Appearance {
   eyeColor: string;
-  hairColor: {
-    primary: string;
-    secondary?: string;
-    otherColors: string[];
-  };
+  hairColor: HairColor;
   noseColor?: string;
   birthMarks: string[];
 }
