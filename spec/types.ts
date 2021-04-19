@@ -4,22 +4,24 @@ interface Vaccine {
   next?: { date: string };
 }
 
+interface Appearance {
+  eyeColor: string;
+  hairColor: {
+    primary: string;
+    secondary?: string;
+    otherColors: string[];
+  };
+  noseColor?: string;
+  birthMarks: string[];
+}
+
 export interface DogSchema {
   name: string;
   age: number;
   favoriteToys: string[];
   luckyNumbers: number[];
   vaccines: Vaccine[];
-  appearance: {
-    eyeColor: string;
-    hairColor: {
-      primary: string;
-      secondary?: string;
-      otherColors: string[];
-    };
-    noseColor?: string;
-    birthMarks: string[];
-  };
+  appearance: Appearance;
   sterilizedAt?: string;
   hasPuppies: boolean;
 }

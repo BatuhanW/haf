@@ -27,7 +27,8 @@ export type FlattenedWithDotNotation<Schema, Prefix = null> =
       {
         [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Record<
           string,
-          unknown
+          // eslint-disable-next-line
+          any
         >
           ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
           : never;
