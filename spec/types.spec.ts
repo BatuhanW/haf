@@ -63,7 +63,7 @@ describe('Type tests', () => {
     // $ExpectTypeSnapshot getHasPuppies
     haf.get('hasPuppies');
 
-    // $ExpectTypeSnapshot getLuckNumbers
+    // $ExpectTypeSnapshot getLuckyNumbers
     haf.get('luckyNumbers');
 
     // $ExpectTypeSnapshot getSterilizedAt
@@ -78,5 +78,13 @@ describe('Type tests', () => {
     // @ts-expect-error: Getting a key that doesn't exist
     // $ExpectTypeSnapshot getError
     haf.get('non-existent');
+
+    // @ts-expect-error: Arrays shouldn't generate types of array methods
+    // $ExpectTypeSnapshot getArrayError
+    haf.get('luckyNumbers.concat');
+
+    // @ts-expect-error: Deeply nested arrays shouldn't generate types of array methods
+    // $ExpectTypeSnapshot getNestedArrayError
+    haf.get('appearance.hairColor.otherColors.concat');
   });
 });

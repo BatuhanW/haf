@@ -25,11 +25,11 @@ export type FlattenedWithDotNotation<Schema, Prefix = null> =
     /* then, for each sub-object, recurse */
     IntersectValuesOf<
       {
-        [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Record<
-          string,
-          // eslint-disable-next-line
-          any
-        >
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
+          ? never
+        // eslint-disable-next-line @typescript-eslint/ban-types
+          : Schema[K] extends object
           ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
           : never;
       }
