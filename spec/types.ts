@@ -4,7 +4,7 @@ interface Vaccine {
   next?: { date: string };
 }
 
-interface HairColor{
+interface HairColor {
   primary: string;
   secondary?: string;
   otherColors: string[];

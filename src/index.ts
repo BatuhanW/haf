@@ -81,7 +81,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   private _get<Path extends StringKeysOf<FlattenedSchema>>(
     path: Path,
-    source?: Partial<Schema>
+    source?: Partial<Schema>,
   ): FlattenedSchema[Path] {
     const keys = path.split('.');
 
@@ -97,7 +97,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   private _set<Path extends StringKeysOf<FlattenedSchema>>(
     path: Path,
-    value?: FlattenedSchema[Path]
+    value?: FlattenedSchema[Path],
   ) {
     const keys = path.split('.');
 

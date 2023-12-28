@@ -16,7 +16,7 @@
     "build": "rimraf dist && tsc --build tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier src --write",
+    "format": "prettier --write .",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint"
   },

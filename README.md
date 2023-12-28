@@ -50,32 +50,30 @@ interface DogSchema {
 ### 2. Initiate Haf
 
 ```typescript
-import Haf from '@batuhanw/haf'
+import Haf from '@batuhanw/haf';
 
-const haf = new Haf<DogSchema>(
-  {
-    name: 'myDog',
-    defaultSchema: {
-      name: 'Pop',
-      age: 2,
-      toys: ['socks', 'toilet paper'],
-      vaccines: [
-        { name: 'rabbies', date: '2020-01-01' },
-        { name: 'parasite', date: '2020-01-01', next: '2020-01-03' },
-      ],
-      appearance: {
-        eyeColor: 'brown',
-        hairColor: {
-          primary: 'white',
-          secondary: undefined,
-          otherColors: ['black'],
-        },
+const haf = new Haf<DogSchema>({
+  name: 'myDog',
+  defaultSchema: {
+    name: 'Pop',
+    age: 2,
+    toys: ['socks', 'toilet paper'],
+    vaccines: [
+      { name: 'rabbies', date: '2020-01-01' },
+      { name: 'parasite', date: '2020-01-01', next: '2020-01-03' },
+    ],
+    appearance: {
+      eyeColor: 'brown',
+      hairColor: {
+        primary: 'white',
+        secondary: undefined,
+        otherColors: ['black'],
       },
-      sterilizedAt: undefined,
-      hasPuppies: false,
-    }
-  }
-)
+    },
+    sterilizedAt: undefined,
+    hasPuppies: false,
+  },
+});
 ```
 
 ### 3. Enjoy
@@ -100,7 +98,7 @@ haf.set('name', 'Pop');
 haf.set('appearance.hairColor', { primary: 'white' });
 haf.set('appearance.hairColor.secondary', 'brown');
 haf.set('appearance.hairColor.secondary', undefined);
-haf.set('appearance.hairColor.otherColors', ['black']) // This will overwrite existing array
+haf.set('appearance.hairColor.otherColors', ['black']); // This will overwrite existing array
 
 haf.set('name', 1); // type error
 haf.set('toys', [1, 2]); // type error
@@ -114,11 +112,11 @@ haf.set('appearance.haircolor', { notExist: 'white' }); //type error
 Appends given values to the existing array
 
 ```typescript
-haf.get('toys') // ['socks', 'toilet paper']
+haf.get('toys'); // ['socks', 'toilet paper']
 
-haf.append('toys', 'human hand', 'bone')
+haf.append('toys', 'human hand', 'bone');
 
-haf.get('toys') // ['socks', 'toilet paper', 'human hand', 'bone']
+haf.get('toys'); // ['socks', 'toilet paper', 'human hand', 'bone']
 ```
 
 #### Delete
