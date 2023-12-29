@@ -23,10 +23,10 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
     this.#options = Object.assign(this.#defaultOptions, options);
     this.configPath = getConfigPath(this.#options.name, this.#options.extension);
 
-    this.upsertSchema();
+    this.initializeStore();
   }
 
-  private upsertSchema() {
+  private initializeStore() {
     if (pathExistsSync(this.configPath)) return;
 
     writeJsonSync(this.configPath, this.#options.defaultSchema);
