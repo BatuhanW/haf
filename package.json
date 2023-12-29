@@ -1,10 +1,10 @@
 {
   "name": "@batuhanw/haf",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "engines": {
     "node": ">=16"
   },
-  "description": "Fully typed, modern, cross-platform persistent config solution for NodeJS projects",
+  "description": "Fully typed, modern, cross-platform persistent JSON storage solution for NodeJS projects.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -46,7 +46,6 @@
     "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.11",
     "@types/node": "^18.19.3",
-    "@types/rimraf": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "eslint": "^8.56.0",

@@ -24,6 +24,7 @@ export type FlattenedWithDotNotation<Schema, Prefix = null> =
     [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K];
   } /* then, for each sub-object, recurse */ & IntersectValuesOf<{
     // see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#key-remapping-in-mapped-types
+    // Since Array type also satisfies `object`, excluding it before starting recursion for `object` type.
     [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
       ? never
       : Schema[K] extends object

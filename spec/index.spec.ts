@@ -246,9 +246,9 @@ describe('Haf', () => {
     });
 
     it('appends string', () => {
-      haf.append('favoriteToys', 'socks');
+      haf.append('favoriteToys', 'socks', 'ball');
 
-      expect(haf.get('favoriteToys')).toEqual(['toilet paper', 'socks']);
+      expect(haf.get('favoriteToys')).toEqual(['toilet paper', 'socks', 'ball']);
     });
 
     it('appends number', () => {
@@ -284,35 +284,37 @@ describe('Haf', () => {
   });
 
   describe('delete()', () => {
+    const defaultSchema = {
+      age: 2,
+      appearance: {
+        eyeColor: 'brown',
+        hairColor: {
+          primary: 'white',
+          otherColors: ['pink'],
+        },
+        birthMarks: ['head'],
+      },
+      favoriteToys: ['socks', 'toilet_paper'],
+      hasPuppies: false,
+      luckyNumbers: [4, 2],
+      name: 'Pop',
+      vaccines: [
+        { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
+        { name: 'parasite', date: '2020-01-22' },
+      ],
+    };
+
     beforeEach(() => {
       haf = new Haf({
         name: 'pop',
-        defaultSchema: {
-          age: 2,
-          appearance: {
-            eyeColor: 'brown',
-            hairColor: {
-              primary: 'white',
-              otherColors: ['pink'],
-            },
-            birthMarks: ['head'],
-          },
-          favoriteToys: ['socks', 'toilet_paper'],
-          hasPuppies: false,
-          luckyNumbers: [4, 2],
-          name: 'Pop',
-          vaccines: [
-            { name: 'rabies', date: '2020-01-22', next: { date: '2020-07-22' } },
-            { name: 'parasite', date: '2020-01-22' },
-          ],
-        },
+        defaultSchema,
       });
     });
 
     it('undefined', () => {
       haf.delete('sterilizedAt');
 
-      expect(haf.get('sterilizedAt')).toBeUndefined();
+      expect(haf.store).toEqual({ ...defaultSchema, sterilizedAt: undefined });
     });
   });
 
