@@ -1,7 +1,7 @@
 import path from 'path';
 import os from 'os';
 
-export const getConfigPath = (name: string, extension?: string): string => {
+export const getStorePath = (name: string, extension?: string): string => {
   if (extension) {
     name += `.${extension}`;
   }

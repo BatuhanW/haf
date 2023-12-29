@@ -1,6 +1,6 @@
 import { pathExistsSync, readJsonSync, writeJsonSync, removeSync } from 'fs-extra';
 
-import { getConfigPath } from './get-config-path';
+import { getStorePath } from './get-store-path';
 import type { FlattenedWithDotNotation, OptionalKeysOf, StringKeysOf, ArrayKeysOf } from './types';
 
 interface Options<Schema> {
@@ -11,7 +11,7 @@ interface Options<Schema> {
 
 class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   readonly #options: Readonly<Options<Schema>>;
-  private configPath: string;
+  private storePath: string;
 
   readonly #defaultOptions: Readonly<Options<Schema>> = {
     name: 'haf',
@@ -21,23 +21,23 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   constructor(options: Options<Schema>) {
     this.#options = Object.assign(this.#defaultOptions, options);
-    this.configPath = getConfigPath(this.#options.name, this.#options.extension);
+    this.storePath = getStorePath(this.#options.name, this.#options.extension);
 
     this.initializeStore();
   }
 
   private initializeStore() {
-    if (pathExistsSync(this.configPath)) return;
+    if (pathExistsSync(this.storePath)) return;
 
-    writeJsonSync(this.configPath, this.#options.defaultSchema);
+    writeJsonSync(this.storePath, this.#options.defaultSchema);
   }
 
   get store(): Schema | Partial<Schema> {
-    return readJsonSync(this.configPath);
+    return readJsonSync(this.storePath);
   }
 
   set store(schema: Schema | Partial<Schema>) {
-    writeJsonSync(this.configPath, schema);
+    writeJsonSync(this.storePath, schema);
   }
 
   get<Path extends StringKeysOf<FlattenedSchema>>(path: Path): FlattenedSchema[Path] {
@@ -76,7 +76,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   }
 
   nuke(): void {
-    removeSync(this.configPath);
+    removeSync(this.storePath);
   }
 
   private _get<Path extends StringKeysOf<FlattenedSchema>, Returns = FlattenedSchema[Path]>(

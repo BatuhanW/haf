@@ -1,6 +1,6 @@
 import os from 'os';
 
-import { getConfigPath } from '../src/get-config-path';
+import { getStorePath } from '../src/get-store-path';
 
 const isWindows = os.platform() === 'win32';
 
@@ -14,7 +14,7 @@ describe('get-config-path', () => {
   describe('extension', () => {
     describe('when absent', () => {
       it('should skip extension', () => {
-        const path = getConfigPath('pop');
+        const path = getStorePath('pop');
 
         const index = path.split(splitKey).lastIndexOf('pop');
 
@@ -24,7 +24,7 @@ describe('get-config-path', () => {
 
     describe('when provided', () => {
       it('should append extension', () => {
-        const path = getConfigPath('pop', 'dog');
+        const path = getStorePath('pop', 'dog');
 
         const index = path.split(splitKey).lastIndexOf('pop.dog');
 
@@ -45,7 +45,7 @@ describe('get-config-path', () => {
         });
 
         it('should respect CONFIG_DIR', () => {
-          const path = getConfigPath('pop');
+          const path = getStorePath('pop');
 
           expect(path).toEqual('/home/config_dir/pop');
         });
@@ -61,7 +61,7 @@ describe('get-config-path', () => {
         });
 
         it('should respect XDG_CONFIG_HOME', () => {
-          const path = getConfigPath('pop');
+          const path = getStorePath('pop');
 
           expect(path).toEqual('/home/xdg_config_home/pop');
         });
@@ -79,7 +79,7 @@ describe('get-config-path', () => {
         });
 
         it('should put under ~/.config', () => {
-          const path = getConfigPath('pop');
+          const path = getStorePath('pop');
 
           expect(path).toEqual('/Users/anda/.config/pop');
         });
@@ -96,7 +96,7 @@ describe('get-config-path', () => {
       });
 
       it('should deal with WINDOWS', () => {
-        const path = getConfigPath('pop');
+        const path = getStorePath('pop');
 
         expect(path).toEqual('C:\\Users\\Pop\\ApplicationData\\pop');
       });
