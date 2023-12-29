@@ -2,7 +2,7 @@
   "name": "@batuhanw/haf",
   "version": "0.1.3",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "description": "Fully typed, modern, cross-platform persistent config solution for NodeJS projects",
   "main": "dist/index.js",
