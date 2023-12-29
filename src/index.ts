@@ -12,16 +12,17 @@ interface Options<Schema> {
 class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   readonly #options: Readonly<Options<Schema>>;
   private storePath: string;
+  private defaultSchema: Partial<Schema>;
 
   readonly #defaultOptions: Readonly<Options<Schema>> = {
     name: 'haf',
     extension: '',
-    defaultSchema: {},
   };
 
   constructor(options: Options<Schema>) {
     this.#options = Object.assign(this.#defaultOptions, options);
     this.storePath = getStorePath(this.#options.name, this.#options.extension);
+    this.defaultSchema = options.defaultSchema ?? {};
 
     this.initializeStore();
   }
@@ -29,7 +30,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   private initializeStore() {
     if (pathExistsSync(this.storePath)) return;
 
-    writeJsonSync(this.storePath, this.#options.defaultSchema);
+    writeJsonSync(this.storePath, this.defaultSchema);
   }
 
   get store(): Schema | Partial<Schema> {
@@ -65,12 +66,12 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   reset(path?: StringKeysOf<FlattenedSchema>): void {
     if (typeof path === 'undefined') {
-      this.store = this.#defaultOptions.defaultSchema || {};
+      this.store = this.defaultSchema;
 
       return;
     }
 
-    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema);
+    const defaultValue = this._get(path, this.defaultSchema);
 
     this._set(path, defaultValue);
   }
