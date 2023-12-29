@@ -1,10 +1,9 @@
 # 🧠 🔒 Haf 🦺 ✏️
 
+[![npm version](https://img.shields.io/npm/v/@batuhanw/haf.svg)](https://www.npmjs.com/package/@batuhanw/haf)
 ![CI](https://github.com/BatuhanW/haf/workflows/main/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/maintainability)](https://codeclimate.com/github/BatuhanW/haf/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/test_coverage)](https://codeclimate.com/github/BatuhanW/haf/test_coverage)
-[![Dependencies](https://status.david-dm.org/gh/batuhanw/haf.svg)](https://status.david-dm.org/gh/batuhanw/haf)
-[![Dev Dependencies](https://status.david-dm.org/gh/batuhanw/haf.svg?type=dev)](https://status.david-dm.org/gh/batuhanw/haf)
 
 Haf is a fully typed 🔒, cross-platform, persistent 💾 config ⚙️ solution for your NodeJS projects with a great developer experience!
 
