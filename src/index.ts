@@ -10,18 +10,11 @@ interface Options<Schema> {
 }
 
 class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
-  readonly #options: Readonly<Options<Schema>>;
   private storePath: string;
   private defaultSchema: Partial<Schema>;
 
-  readonly #defaultOptions: Readonly<Options<Schema>> = {
-    name: 'haf',
-    extension: '',
-  };
-
   constructor(options: Options<Schema>) {
-    this.#options = Object.assign(this.#defaultOptions, options);
-    this.storePath = getStorePath(this.#options.name, this.#options.extension);
+    this.storePath = getStorePath(options.name, options.extension);
     this.defaultSchema = options.defaultSchema ?? {};
 
     this.initializeStore();
