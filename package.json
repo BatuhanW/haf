@@ -11,7 +11,9 @@
     "dist/**/*"
   ],
   "scripts": {
+    "dev": "npm run build -- --watch",
     "test": "jest --runInBand",
+    "test:watch": "npm run test -- --watch",
     "test:coverage": "jest --runInBand --coverage",
     "build": "rimraf dist && tsc --build tsconfig.build.json",
     "lint": "eslint . --ext .ts",

@@ -1,43 +1,37 @@
 import { pathExistsSync, readJsonSync, writeJsonSync, removeSync } from 'fs-extra';
 
-import { getConfigPath } from './get-config-path';
+import { getStorePath } from './get-store-path';
 import type { FlattenedWithDotNotation, OptionalKeysOf, StringKeysOf, ArrayKeysOf } from './types';
 
-interface Options<Schema> {
+interface HafConfig<Schema> {
   name: string;
   extension?: string;
   defaultSchema?: Partial<Schema>;
 }
 
 class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
-  readonly #options: Readonly<Options<Schema>>;
-  private configPath: string;
+  private storePath: string;
+  private defaultSchema: Partial<Schema>;
 
-  readonly #defaultOptions: Readonly<Options<Schema>> = {
-    name: 'haf',
-    extension: '',
-    defaultSchema: {},
-  };
+  constructor(config: HafConfig<Schema>) {
+    this.storePath = getStorePath(config.name, config.extension);
+    this.defaultSchema = config.defaultSchema ?? {};
 
-  constructor(options: Options<Schema>) {
-    this.#options = Object.assign(this.#defaultOptions, options);
-    this.configPath = getConfigPath(this.#options.name, this.#options.extension);
-
-    this.upsertSchema();
+    this.initializeStore();
   }
 
-  private upsertSchema() {
-    if (pathExistsSync(this.configPath)) return;
+  private initializeStore() {
+    if (pathExistsSync(this.storePath)) return;
 
-    writeJsonSync(this.configPath, this.#options.defaultSchema);
+    writeJsonSync(this.storePath, this.defaultSchema);
   }
 
   get store(): Schema | Partial<Schema> {
-    return readJsonSync(this.configPath);
+    return readJsonSync(this.storePath);
   }
 
   set store(schema: Schema | Partial<Schema>) {
-    writeJsonSync(this.configPath, schema);
+    writeJsonSync(this.storePath, schema);
   }
 
   get<Path extends StringKeysOf<FlattenedSchema>>(path: Path): FlattenedSchema[Path] {
@@ -65,18 +59,18 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
   reset(path?: StringKeysOf<FlattenedSchema>): void {
     if (typeof path === 'undefined') {
-      this.store = this.#defaultOptions.defaultSchema || {};
+      this.store = this.defaultSchema;
 
       return;
     }
 
-    const defaultValue = this._get(path, this.#defaultOptions.defaultSchema);
+    const defaultValue = this._get(path, this.defaultSchema);
 
     this._set(path, defaultValue);
   }
 
   nuke(): void {
-    removeSync(this.configPath);
+    removeSync(this.storePath);
   }
 
   private _get<Path extends StringKeysOf<FlattenedSchema>, Returns = FlattenedSchema[Path]>(

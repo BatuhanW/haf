@@ -366,12 +366,13 @@ describe('Haf', () => {
       });
 
       describe('when path provided', () => {
-        it('resets given path to its default value', () => {
-          haf.set('name', 'Pop2');
+        it('resets **only** given path to its default value', () => {
+          haf.set('name', 'Popita');
+          haf.set('age', 3);
 
           haf.reset('name');
 
-          expect(haf.get('name')).toEqual('Pop');
+          expect(haf.store).toEqual({ ...defaultSchema, age: 3 });
         });
       });
     });
