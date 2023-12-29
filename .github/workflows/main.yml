@@ -3,7 +3,7 @@ name: main
 on:
   push:
     branches:
-      - 'main'
+      - main
   pull_request:
     types:
       - opened
@@ -14,12 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        uses: actions/checkout@v3
 
       - name: Run ESLint
         run: npx eslint . --ext .ts
@@ -29,22 +24,20 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node: [10, 12, 14, 15]
+        node: [12, 14, 16, 18, 20]
 
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: Run tests
         run: npm t
@@ -55,17 +48,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 18
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: Codeclimate Test Coverage
         uses: paambaati/codeclimate-action@v2.7.5
@@ -73,4 +64,3 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: npm run test:coverage
-          debug: true
