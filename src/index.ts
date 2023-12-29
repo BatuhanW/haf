@@ -56,7 +56,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
     return readJsonSync(this.storePath);
   }
 
-  set store(schema: Schema | Partial<Schema>) {
+  private set store(schema: Schema | Partial<Schema>) {
     writeJsonSync(this.storePath, schema);
   }
 
