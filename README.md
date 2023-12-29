@@ -6,7 +6,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/maintainability)](https://codeclimate.com/github/BatuhanW/haf/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/test_coverage)](https://codeclimate.com/github/BatuhanW/haf/test_coverage)
 
-Haf is a fully typed 🔒, cross-platform, persistent 💾 config ⚙️ solution for your NodeJS projects with a great developer experience!
+Haf is a fully typed 🔒, cross-platform, persistent 💾 JSON storage ⚙️ solution for your NodeJS projects with a great developer experience!
 
 - ✏️ Auto-completed dot-notation suggestions as you type when you try to get()/set()/delete()/reset() data from the store.
 - ✅ The type of the value you get() from the store is correctly inferred. So you always know what you'll get().
