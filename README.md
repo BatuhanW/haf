@@ -60,7 +60,7 @@ const haf = new Haf<DogSchema>({
     toys: ['socks', 'toilet paper'],
     vaccines: [
       { name: 'rabbies', date: '2020-01-01' },
-      { name: 'parasite', date: '2020-01-01', next: '2020-01-03' },
+      { name: 'parasite', date: '2020-01-01', nextDate: '2020-01-03' },
     ],
     appearance: {
       eyeColor: 'brown',
