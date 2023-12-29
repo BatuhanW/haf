@@ -7,6 +7,7 @@ interface HafConfig<Schema> {
   name: string;
   extension?: string;
   defaultSchema?: Partial<Schema>;
+  storeDir?: string;
 }
 
 class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
@@ -14,7 +15,7 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   private defaultSchema: Partial<Schema>;
 
   constructor(config: HafConfig<Schema>) {
-    this.storePath = getStorePath(config.name, config.extension);
+    this.storePath = getStorePath(config.name, config.extension, config.storeDir);
     this.defaultSchema = config.defaultSchema ?? {};
 
     this.initializeStore();

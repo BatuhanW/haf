@@ -33,72 +33,84 @@ describe('get-store-path', () => {
     });
   });
 
-  describe('platforms', () => {
-    describeIfUnix('unix', () => {
-      describe('when CONFIG_DIR is present', () => {
-        beforeEach(() => {
-          process.env.CONFIG_DIR = '/home/config_dir';
-        });
+  describe('storeDir', () => {
+    describe('when provided', () => {
+      it('should respect storeDir', () => {
+        const path = getStorePath('pop', 'dog', '/my/store/dir');
 
-        afterEach(() => {
-          delete process.env.CONFIG_DIR;
-        });
-
-        it('should respect CONFIG_DIR', () => {
-          const path = getStorePath('pop');
-
-          expect(path).toEqual('/home/config_dir/pop.haf');
-        });
-      });
-
-      describe('when XDG_CONFIG_HOME is present', () => {
-        beforeEach(() => {
-          process.env.XDG_CONFIG_HOME = '/home/xdg_config_home';
-        });
-
-        afterEach(() => {
-          delete process.env.XDG_CONFIG_HOME;
-        });
-
-        it('should respect XDG_CONFIG_HOME', () => {
-          const path = getStorePath('pop');
-
-          expect(path).toEqual('/home/xdg_config_home/pop.haf');
-        });
-      });
-
-      describe('when fallback', () => {
-        const spy = jest.spyOn(os, 'homedir');
-
-        beforeEach(() => {
-          spy.mockReturnValue('/Users/pop');
-        });
-
-        afterEach(() => {
-          spy.mockRestore();
-        });
-
-        it('should put under ~/.config', () => {
-          const path = getStorePath('pop');
-
-          expect(path).toEqual('/Users/pop/.config/pop.haf');
-        });
+        expect(path).toEqual('/my/store/dir/pop.dog');
       });
     });
 
-    describeIfWindows('when windows 😞', () => {
-      beforeEach(() => {
-        process.env.LOCALAPPDATA = 'C:\\Users\\Pop\\ApplicationData';
-      });
+    describe('when absent', () => {
+      describe('platforms', () => {
+        describeIfUnix('unix', () => {
+          describe('when CONFIG_DIR is present', () => {
+            beforeEach(() => {
+              process.env.CONFIG_DIR = '/home/config_dir';
+            });
 
-      afterEach(() => {
-        delete process.env.LOCALAPPDATA;
-      });
+            afterEach(() => {
+              delete process.env.CONFIG_DIR;
+            });
 
-      it('should deal with WINDOWS', () => {
-        const path = getStorePath('pop');
+            it('should respect CONFIG_DIR', () => {
+              const path = getStorePath('pop');
 
-        expect(path).toEqual('C:\\Users\\Pop\\ApplicationData\\pop.haf');
+              expect(path).toEqual('/home/config_dir/pop.haf');
+            });
+          });
+
+          describe('when XDG_CONFIG_HOME is present', () => {
+            beforeEach(() => {
+              process.env.XDG_CONFIG_HOME = '/home/xdg_config_home';
+            });
+
+            afterEach(() => {
+              delete process.env.XDG_CONFIG_HOME;
+            });
+
+            it('should respect XDG_CONFIG_HOME', () => {
+              const path = getStorePath('pop');
+
+              expect(path).toEqual('/home/xdg_config_home/pop.haf');
+            });
+          });
+
+          describe('when fallback', () => {
+            const spy = jest.spyOn(os, 'homedir');
+
+            beforeEach(() => {
+              spy.mockReturnValue('/Users/pop');
+            });
+
+            afterEach(() => {
+              spy.mockRestore();
+            });
+
+            it('should put under ~/.config', () => {
+              const path = getStorePath('pop');
+
+              expect(path).toEqual('/Users/pop/.config/pop.haf');
+            });
+          });
+        });
+
+        describeIfWindows('when windows 😞', () => {
+          beforeEach(() => {
+            process.env.LOCALAPPDATA = 'C:\\Users\\Pop\\ApplicationData';
+          });
+
+          afterEach(() => {
+            delete process.env.LOCALAPPDATA;
+          });
+
+          it('should deal with WINDOWS', () => {
+            const path = getStorePath('pop');
+
+            expect(path).toEqual('C:\\Users\\Pop\\ApplicationData\\pop.haf');
+          });
+        });
       });
     });
   });
