@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@batuhanw/haf.svg)](https://www.npmjs.com/package/@batuhanw/haf)
 ![CI](https://github.com/BatuhanW/haf/workflows/main/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/BatuhanW/haf/badge.svg?targetFile=package.json)](https://snyk.io/test/github/BatuhanW/haf?targetFile=package.json)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/maintainability)](https://codeclimate.com/github/BatuhanW/haf/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4315aa36678fe4181b77/test_coverage)](https://codeclimate.com/github/BatuhanW/haf/test_coverage)
 
