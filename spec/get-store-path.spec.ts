@@ -10,13 +10,13 @@ const describeIfUnix = isWindows ? describe.skip : describe;
 
 const splitKey = isWindows ? '\\' : '/';
 
-describe('get-config-path', () => {
+describe('get-store-path', () => {
   describe('extension', () => {
     describe('when absent', () => {
-      it('should skip extension', () => {
+      it('should add .haf extension', () => {
         const path = getStorePath('pop');
 
-        const index = path.split(splitKey).lastIndexOf('pop');
+        const index = path.split(splitKey).lastIndexOf('pop.haf');
 
         expect(index).toBeGreaterThanOrEqual(0);
       });
@@ -47,7 +47,7 @@ describe('get-config-path', () => {
         it('should respect CONFIG_DIR', () => {
           const path = getStorePath('pop');
 
-          expect(path).toEqual('/home/config_dir/pop');
+          expect(path).toEqual('/home/config_dir/pop.haf');
         });
       });
 
@@ -63,7 +63,7 @@ describe('get-config-path', () => {
         it('should respect XDG_CONFIG_HOME', () => {
           const path = getStorePath('pop');
 
-          expect(path).toEqual('/home/xdg_config_home/pop');
+          expect(path).toEqual('/home/xdg_config_home/pop.haf');
         });
       });
 
@@ -71,7 +71,7 @@ describe('get-config-path', () => {
         const spy = jest.spyOn(os, 'homedir');
 
         beforeEach(() => {
-          spy.mockReturnValue('/Users/anda');
+          spy.mockReturnValue('/Users/pop');
         });
 
         afterEach(() => {
@@ -81,7 +81,7 @@ describe('get-config-path', () => {
         it('should put under ~/.config', () => {
           const path = getStorePath('pop');
 
-          expect(path).toEqual('/Users/anda/.config/pop');
+          expect(path).toEqual('/Users/pop/.config/pop.haf');
         });
       });
     });
@@ -98,7 +98,7 @@ describe('get-config-path', () => {
       it('should deal with WINDOWS', () => {
         const path = getStorePath('pop');
 
-        expect(path).toEqual('C:\\Users\\Pop\\ApplicationData\\pop');
+        expect(path).toEqual('C:\\Users\\Pop\\ApplicationData\\pop.haf');
       });
     });
   });
