@@ -48,15 +48,15 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
     this._set(path, value);
   }
 
-  append<Path extends ArrayKeysOf<FlattenedSchema>>(
-    path: Path,
-    ...values: FlattenedSchema[Path]
-  ): void {
-    const existingValues = this._get(path);
+  append<
+    Path extends ArrayKeysOf<FlattenedSchema>,
+    Values extends Extract<FlattenedSchema[Path], unknown[]>,
+  >(path: Path, ...values: Values): void {
+    const existingValues = this._get<Path, Values>(path);
 
-    const result = [...existingValues, ...values];
+    existingValues.push(...values);
 
-    this._set(path, result as FlattenedSchema[Path]);
+    this._set(path, existingValues);
   }
 
   delete(path: OptionalKeysOf<FlattenedSchema>): void {
@@ -79,25 +79,24 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
     removeSync(this.configPath);
   }
 
-  private _get<Path extends StringKeysOf<FlattenedSchema>>(
+  private _get<Path extends StringKeysOf<FlattenedSchema>, Returns = FlattenedSchema[Path]>(
     path: Path,
-    source?: Partial<Schema>
-  ): FlattenedSchema[Path] {
+    source?: Partial<Schema>,
+  ): Returns {
     const keys = path.split('.');
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let result: any = source ? source : this.store;
 
     for (let i = 0; i < keys.length; i++) {
       result = result?.[keys[i]];
     }
 
-    return result as FlattenedSchema[Path];
+    return result as Returns;
   }
 
   private _set<Path extends StringKeysOf<FlattenedSchema>>(
     path: Path,
-    value?: FlattenedSchema[Path]
+    value?: FlattenedSchema[Path],
   ) {
     const keys = path.split('.');
 
@@ -105,10 +104,8 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
 
     keys.reduce((obj, key) => {
       if (keys.findIndex((k) => k === key) === keys.length - 1) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any)[key] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return (obj as any)[key];
       }
     }, result);

@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
   ? I
   : never;
@@ -21,21 +20,17 @@ type AddPrefix<TKey extends string, Prefix> = Prefix extends string ? `${Prefix}
  */
 export type FlattenedWithDotNotation<Schema, Prefix = null> =
   /* first, simply output the keys with prefix and their types: */
-  { [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] } & // see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#key-remapping-in-mapped-types
-    /* then, for each sub-object, recurse */
-    IntersectValuesOf<
-      {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
-          ? never
-        // eslint-disable-next-line @typescript-eslint/ban-types
-          : Schema[K] extends object
-          ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
-          : never;
-      }
-    >;
+  {
+    [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K];
+  } /* then, for each sub-object, recurse */ & IntersectValuesOf<{
+    // see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#key-remapping-in-mapped-types
+    [K in string & keyof Schema as AddPrefix<K, Prefix>]: Schema[K] extends Array<any>
+      ? never
+      : Schema[K] extends object
+        ? FlattenedWithDotNotation<Schema[K], AddPrefix<K, Prefix>>
+        : never;
+  }>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PrimitiveTypes = string | number | boolean | any[] | Record<string, unknown>;
 
 export type StringKeysOf<Schema> = keyof Schema & string;
@@ -52,5 +47,4 @@ export type OptionalKeysOf<Schema> = Exclude<
   ExtractKeysIn<Schema, PrimitiveTypes>
 >;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ArrayKeysOf<Schema> = Extract<StringKeysOf<Schema>, ExtractKeysIn<Schema, any[]>>;
+export type ArrayKeysOf<Schema> = StringKeysOf<Schema> & ExtractKeysIn<Schema, any[]>;
