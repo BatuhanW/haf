@@ -3,7 +3,7 @@ import { pathExistsSync, readJsonSync, writeJsonSync, removeSync } from 'fs-extr
 import { getStorePath } from './get-store-path';
 import type { FlattenedWithDotNotation, OptionalKeysOf, StringKeysOf, ArrayKeysOf } from './types';
 
-interface Options<Schema> {
+interface HafConfig<Schema> {
   name: string;
   extension?: string;
   defaultSchema?: Partial<Schema>;
@@ -13,9 +13,9 @@ class Haf<Schema, FlattenedSchema = FlattenedWithDotNotation<Schema>> {
   private storePath: string;
   private defaultSchema: Partial<Schema>;
 
-  constructor(options: Options<Schema>) {
-    this.storePath = getStorePath(options.name, options.extension);
-    this.defaultSchema = options.defaultSchema ?? {};
+  constructor(config: HafConfig<Schema>) {
+    this.storePath = getStorePath(config.name, config.extension);
+    this.defaultSchema = config.defaultSchema ?? {};
 
     this.initializeStore();
   }
