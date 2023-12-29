@@ -34,7 +34,7 @@ describe('get-store-path', () => {
   });
 
   describe('storeDir', () => {
-    describe('when provided', () => {
+    describeIfUnix('when provided', () => {
       it('should respect storeDir', () => {
         const path = getStorePath('pop', 'dog', '/my/store/dir');
 
